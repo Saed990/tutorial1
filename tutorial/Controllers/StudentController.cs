@@ -30,11 +30,10 @@ namespace tutorial.Controllers
         }
 
         [HttpPost]
-        public ActionResult edit(student std)
+        public ActionResult edit([Bind(Include ="ID,name")] student std)
         {
             var id = std.ID;
             var name = std.name;
-            var age = std.age;
 
             //update database
             return RedirectToAction("Index");
