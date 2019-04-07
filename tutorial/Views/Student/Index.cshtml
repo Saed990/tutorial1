@@ -2,27 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    string message = "Hello world";
-    @: This is a text inside a block <br />
-
-
-    <text> this is another text</text> <br />
-
 }
-
-@if (!DateTime.IsLeapYear(DateTime.Now.Year))
-{
-    <text>this year (</text> @DateTime.Now.Year <text>) is not a leap year</text>
-}
-
-@for (int i = 4; i < 9; i++)
-{
-    @i.ToString();
-}
-
-
-
-<h3>@message</h3>
 
 <h2>Index</h2>
 
@@ -32,35 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            Text box
-        </th>
-        <th>
-            Checkbox area
-        </th>
-        <th>
-            Radio button
-        </th>
-        <th>
-            Text area
-        </th>
-        <th>
-            dropdown list
-        </th>
-        <th>
-            Hidden field
-        </th>
-        <th>
-            Password
-        </th>
-        <th>
-            Label
-        </th>
-        <th>
-            Editor
-        </th>
-
-
-        <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
@@ -69,40 +20,20 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
+@foreach (var item in Model) {
     <tr>
-        <td>@Html.TextAreaFor(m => item.name, new { @class = "form-control" })</td>
-        <td>@Html.CheckBoxFor(m => item.isenrolled, new { @class = "form-control" })</td>
-        <td>@Html.RadioButtonFor(m => item.gender, new { @class = "form-control" })</td>
-
-        <td>@Html.TextBoxFor(m => item.name, new { @class = "form-control" })</td>
-        <td>@Html.DropDownListFor(m => item.gender, new SelectList(Enum.GetValues(typeof(tutorial.Models.gender))), "Select gender", new { @class = "form-control" })</td>
-        <td>
-            @Html.HiddenFor(modelItem => item.ID)
-        </td>
-        <td>
-            @Html.PasswordFor(modelItem => item.Password, new { @class = "form-control" })
-        </td>
-        <td>
-            @Html.LabelFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.EditorFor(modelItem => item.name)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.age)
         </td>
-
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
-    }
+}
 
 </table>
