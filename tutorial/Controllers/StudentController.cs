@@ -5,12 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using tutorial.Models;
 
+
 namespace tutorial.Controllers
 {
 
-    public class data
+    
+
+    public class StudentController : Controller
     {
-       public static List<student> studentlist = new List<student> {
+       static List<student> studentlist = new List<student> {
                 new student{ ID=1, name="Ali", age=34},
                 new student{ ID=2, name="Khalid", age=11},
                 new student{ ID=3, name="Mohamad", age=34},
@@ -18,31 +21,54 @@ namespace tutorial.Controllers
                 new student{ ID=5, name="Ali", age=22},
                 new student{ ID=6, name="Anas", age=40},
             };
-    }
 
-    public class StudentController : Controller
-    {
+
         // GET: Student
         public ActionResult Index()
         {
-            
 
-            return View(tutorial.Controllers.data.studentlist);
+
+            return View(studentlist);
         }
 
-        public ActionResult edit(int id) {
-            
-            return View();
+        public ActionResult Edit(int? id) {
+
+
+            if (id>0)
+            {
+                student s = studentlist.Where(m => m.ID == id).FirstOrDefault();
+                return View(s);
+            }
+
+            else
+            {
+                return View();
+            }
+
+
         }
 
         [HttpPost]
-        public ActionResult edit([Bind(Include ="ID,name")] student std)
+        public ActionResult Edit(student std)
         {
-            var id = std.ID;
-            var name = std.name;
+            if (std.ID>0)
+            {
+                
+                studentlist.Where(m => m.ID == std.ID).FirstOrDefault().name = std.name;
+                studentlist.Where(m => m.ID == std.ID).FirstOrDefault().age = std.age;
 
-            //update database
-            return RedirectToAction("Index");
+
+                return RedirectToAction("Index");
+            }
+
+            else
+            {
+                int id = studentlist.Capacity;
+                student n = new student { ID = id, age = std.age, name = std.name };
+                studentlist.Add(n);
+                return RedirectToAction("Index");
+            }
+
         }
 
 
