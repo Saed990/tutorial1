@@ -71,6 +71,21 @@ namespace tutorial.Controllers
 
         }
 
+        public ActionResult Delete (int id)
+        {
+            student std = studentlist.Where(m => m.ID == id).FirstOrDefault();
+            return View(std);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(student sd)
+        {
+            student std = studentlist.Where(m => m.ID == sd.ID).FirstOrDefault();
+            studentlist.Remove(std);
+            return RedirectToAction("index");
+        }
+
+
 
     }
 }
